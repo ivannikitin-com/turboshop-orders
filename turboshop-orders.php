@@ -26,7 +26,8 @@
 defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
 
 /* Глобальные константы плагина */
-define( 'TURBOSHOP_ORDERS', 'turboshop_orders' );	      // Text Domain
+define( 'TURBOSHOP_ORDERS', 'turboshop_orders' );	      // Название и текст домен
+define( 'TURBOSHOP_ORDERS_MAJOR_VER', 'v1' );	          // Версия REST API плагина
 define( 'TURBOSHOP_ORDERS_DIR', dirname( __FILE__ ) );	  // Папка плагина
 
 /* Файлы плагина */

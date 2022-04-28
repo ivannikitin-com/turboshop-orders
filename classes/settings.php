@@ -10,7 +10,7 @@ class Settings {
      * Используем статичную переменную, так как константы класса не могут быть массивом
      */
     private static $DEFAULTS = array(
-
+        'token' => '546df3as346fasd6f2312'
     );    
 
     /**
