@@ -28,7 +28,7 @@ class Settings {
      */
     public function get( $param ) {
         // Если массив настроек пустой, значит нужно загрузить настройки
-        if ( 0 == count( $this->settings ) ) $this->load_settings( self::$DEFAULTS );
+        if ( !$this->settings || 0 == count( $this->settings ) ) $this->load_settings( self::$DEFAULTS );
 
         // Проверяем наличие параметра
         if ( !array_key_exists( $param, $this->settings ) ) return null;

@@ -1,0 +1,34 @@
+POST https://ivannikitin.local/wp-json/turboshop_orders/v1/order/status HTTP/1.1
+Content-type: application/json
+Authorization: 546df3as346fasd6f2312 
+
+{
+    "order": 
+    {
+      "status": "PROCESSING",
+      "currency": "RUB",
+      "paymentMethod": null,
+      "buyer": {
+        "id": "142",
+        "phone": "+7 903 200-00-01",
+        "email": "test@turbo.ru",
+        "name": "Ivan Petrov"
+      },
+      "delivery": {
+        "price": "140,5"
+      },
+      "fake": true,
+      "items": [
+        {
+          "count": 2,
+          "price": "2000,0",
+          "offerId": "337",
+          "offerName": "Плакат Баба Дура"
+        }
+      ],
+      "notes": "Заметка к заказу",
+      "paymentType": "POSTPAID",
+      "id": 123123,
+      "substatus": "STARTED"
+    }
+  }

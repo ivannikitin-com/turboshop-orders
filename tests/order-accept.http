@@ -1,0 +1,31 @@
+POST https://ivannikitin.local/wp-json/turboshop_orders/v1/order/accept HTTP/1.1
+Content-type: application/json
+Authorization: 546df3as346fasd6f2312 
+
+{
+  "order":
+  {
+    "currency": "RUB",
+    "fake": false,
+    "id": 12345,
+    "paymentType": "PREPAID",
+    "paymentMethod": "YANDEX",
+    "delivery":
+    {
+        "price": "300,00"  
+    },
+    "items":
+    [
+      {
+        "offerId": "337",
+        "count": 1,
+        "price": "2000,00"
+      },
+      {
+        "offerId": "311",
+        "count": 2,
+        "price": "2200,50"
+      }
+    ]
+  }
+}
