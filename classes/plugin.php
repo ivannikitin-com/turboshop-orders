@@ -252,16 +252,22 @@ class Plugin {
             if ( isset( $json[ 'buyer' ][ 'name' ] ) ) $order->set_billing_last_name( $json[ 'buyer' ][ 'name' ] );
             if ( isset( $json[ 'buyer' ][ 'lastName' ] ) ) $order->set_billing_last_name( $json[ 'buyer' ][ 'lastName' ] );
             if ( isset( $json[ 'buyer' ][ 'firstName' ] ) ) $order->set_billing_first_name( $json[ 'buyer' ][ 'firstName' ] );
-        }  
+        }
 
         // Сохраняем
-        $order->save();
-        
+        $order->calculate_totals();
+        $order->save();        
+
         // Добавляем комментарий в заказ
         $order->add_order_note( $order_comment, false, false );
 
         // ID обработанного заказа
         $result[ 'id' ] = $order->get_id();
+
+        // Если выключена отладка и это фейковый заказ, сразу удаляем его
+        if ( !WP_DEBUG && isset( $json[ 'fake' ] ) && 'true' == $json[ 'fake' ] ) {
+            $order->delete( false );
+        }        
 
         // Вернем результат
         return $result;
