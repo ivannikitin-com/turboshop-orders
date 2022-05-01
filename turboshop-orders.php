@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       TurboShop Orders
  * Plugin URI:        https://github.com/ivannikitin-com/turboshop-orders
- * Description:       Плагин для Woocommerce, который сохраняет ClientID Google Analytics, Яндекс.Метрика и других счетчиков в полях заказа и в формах ContactForm 7.
+ * Description:       Плагин для регистрации в WooCommerce заказов, сделанных в магазине Яндекс.Турбо
  * Version:           0.1
  * Requires at least: 5.9
  * Requires PHP:      7.4
