@@ -43,10 +43,9 @@ class Settings {
     private function get_settings_fields() {
         return array(
             'section_title' => array(
-                'name'     => __( 'Подключение Турбо‑страниц для интернет-магазинов' , TURBOSHOP_ORDERS ),
+                'name'     => Plugin::$meta[ 'title' ] . ' ' . Plugin::$meta[ 'version' ],
                 'type'     => 'title',
-                'desc'     => __( 'Эта настройка позволяет регистрировать заказы, сделанные в Яндекс.Турбо, в базе WooCommerce.', TURBOSHOP_ORDERS ) . ' ' .
-                              __( 'Для работы необходимо получить токен в разделе "Турбо‑страниц для интернет-магазинов / Настройки / Настройка API" Яндекс.Вебмастер.', TURBOSHOP_ORDERS ),
+                'desc'     => Plugin::$meta[ 'description' ],
                 'id'       => TURBOSHOP_ORDERS . '_section_title'
             ),
             'token' => array(

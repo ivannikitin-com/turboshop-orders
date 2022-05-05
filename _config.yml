@@ -1,1 +1,5 @@
 theme: jekyll-theme-slate
+title: Turboshop Orders
+description: Плагин для регистрации в WooCommerce заказов, сделанных в магазине Яндекс.Турбо.
+logo: /assets/img/logo.png
+show_downloads: true

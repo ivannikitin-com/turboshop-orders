@@ -10,17 +10,27 @@ use \WC_Shipping_Rate AS WC_Shipping_Rate;
 use \WC_Product AS WC_Product;
 
 class Plugin {
+    /**
+     * Мета-данные плагина
+     * @var mixed
+     */
+    static $meta;
 
     /**
-     * @var mixed
      * Параметры плагина в виде ассоциативного массива
+     * @var mixed
      */
     private $settings;
 
     /**
      * Конструктор класса
+     * 
+     * @param mixed $meta   Массив мета-данных плагина 
      */
-    public function __construct() {
+    public function __construct( $meta ) {
+        // Сохраняем мета-данные
+        self::$meta = $meta;
+                
         // Хуки
         add_action( 'init',             array( $this, 'init' ) );
         add_action( 'rest_api_init',    array( $this, 'rest_api_init' ) );
@@ -42,21 +52,21 @@ class Plugin {
         // Регистрируем конечную точку для приема заказов
         // https://wp-kama.ru/function/register_rest_route
         register_rest_route( 
-            TURBOSHOP_ORDERS . '/' . TURBOSHOP_ORDERS_MAJOR_VER,    // Namespace REST API
+            TURBOSHOP_ORDERS . '/' . TURBOSHOP_ORDERS_API_VER,      // Namespace REST API
             '/order/accept',                                        // Маршрут
             array(
-                'methods'  => 'POST',                                // Метод запроса
-                'callback' => array( $this, 'post_order_accept' )    // Обработчик
+                'methods'  => 'POST',                               // Метод запроса
+                'callback' => array( $this, 'post_order_accept' )   // Обработчик
             )
         );
         
         // Регистрируем конечную точку для обновления заказов
         register_rest_route( 
-            TURBOSHOP_ORDERS . '/' . TURBOSHOP_ORDERS_MAJOR_VER,    // Namespace REST API
+            TURBOSHOP_ORDERS . '/' . TURBOSHOP_ORDERS_API_VER,      // Namespace REST API
             '/order/status',                                        // Маршрут
             array(
-                'methods'  => 'POST',                                // Метод запроса
-                'callback' => array( $this, 'post_order_status' )    // Обработчик
+                'methods'  => 'POST',                               // Метод запроса
+                'callback' => array( $this, 'post_order_status' )   // Обработчик
             )
         );        
     }
