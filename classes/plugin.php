@@ -30,10 +30,12 @@ class Plugin {
     public function __construct( $meta ) {
         // Сохраняем мета-данные
         self::$meta = $meta;
-                
+
         // Хуки
         add_action( 'init',             array( $this, 'init' ) );
         add_action( 'rest_api_init',    array( $this, 'rest_api_init' ) );
+        add_filter( 'manage_edit-shop_order_columns', array( $this, 'custom_shop_order_column' ), 20 );
+        add_action( 'manage_shop_order_posts_custom_column', array( $this, 'custom_orders_list_column_content' ), 20, 2 );        
     }
 
     /**
@@ -354,5 +356,36 @@ class Plugin {
      */
     private function comma_to_decimal( $value ) {
         return (float) str_replace(',', '.', $value );
+    }
+
+    /**
+     * Функция Добавляет новую колонку в список заказов
+     * 
+     * @param mixed    $columns    Массив колонок
+     */ 
+    public function custom_shop_order_column( $columns ) {
+        $new_columns = array();
+
+        // Добавляем колонку ПОСЛЕ order_total
+        foreach( $columns as $key => $column){
+            $new_columns[$key] = $column;
+            if( $key ==  'order_total' ){
+                // Новая колонка
+                $new_columns[ 'turbo_order_id' ] = __('Заказ в Яндекс.Турбо', TURBOSHOP_ORDERS );
+            }
+        }
+        return $new_columns;
+    }
+
+    /**
+     * Функция выводит данные в новую колонку в списке заказов
+     * 
+     * @param string    $column     ID колонки
+     * @param int       $post_id    ID заказа
+     */ 
+    function custom_orders_list_column_content( $column, $post_id ) {
+        if ( 'turbo_order_id' == $column ) {
+            echo get_post_meta( $post_id, self::TURBO_ORDER_ID, true );
+        }
     }
 }
