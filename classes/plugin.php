@@ -106,7 +106,8 @@ class Plugin {
                 'order' => $this->update_order( 
                     $this->get_order_by_turbo_id( $turbo_order[ 'id' ] ), 
                     $turbo_order,
-                    __('Создание заказа Яндекс.Турбо', TURBOSHOP_ORDERS )
+                    __('Создание заказа Яндекс.Турбо', TURBOSHOP_ORDERS ),
+                    true   // Список товаров в заказе необходимо создать
                 )
             );
         }
@@ -157,7 +158,8 @@ class Plugin {
                 'order' => $this->update_order( 
                     $this->get_order_by_turbo_id( $turbo_order[ 'id' ] ), 
                     $turbo_order,
-                    __('Обновление заказа Яндекс.Турбо', TURBOSHOP_ORDERS )
+                    __('Обновление заказа Яндекс.Турбо', TURBOSHOP_ORDERS ), 
+                    false   // Список товаров в заказе НЕ ОБНОВЛЯТЬ
                 )
             );
         }
@@ -178,12 +180,15 @@ class Plugin {
     /**
      * Обновление заказа по данным JSON
      * 
-     * @param   WC_Order  $order    Заказ WooCommerce
-     * @param   mixed     $json     Массив с JSON данными
-     * @param   string    $action   Строковое описание действия
-     * @return  mixed               Возвращает массив для отправки ответа 
+     * @param   WC_Order  $order            Заказ WooCommerce
+     * @param   mixed     $json             Массив с JSON данными
+     * @param   string    $action           Строковое описание действия
+     * @param   bool      $update_products  Если true, то товары, переданные в JSON, записываются в заказ, 
+     *                                      предварительно все существующие в заказе товары стираются.
+     *                                      Если false, товары в JSON игнорируются. 
+     * @return  mixed                       Возвращает массив для отправки ответа
      */
-    private function update_order( $order, $json, $action ) {
+    private function update_order( $order, $json, $action, $update_products ) {
         // Массив возврата
         $result = array(
             'id'        => '',
@@ -237,7 +242,7 @@ class Plugin {
         }
 
         // Позиции (товары) заказа
-        if ( isset( $json[ 'items' ] ) ) {
+        if ( $update_products && isset( $json[ 'items' ] ) ) {
             // Удалим из заказа все старые позиции
             $order->remove_order_items( 'line_item' );            
 
