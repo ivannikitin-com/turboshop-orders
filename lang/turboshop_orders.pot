@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TurboShop Orders\n"
-"POT-Creation-Date: 2022-05-01 20:15+0300\n"
-"PO-Revision-Date: 2022-05-01 20:11+0300\n"
+"POT-Creation-Date: 2022-05-05 15:31+0300\n"
+"PO-Revision-Date: 2022-05-05 15:30+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,76 +21,92 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: classes/plugin.php:74 classes/plugin.php:125
+#: classes/plugin.php:86 classes/plugin.php:138
 msgid "Требуется авторизация и правильный токен магазина Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:84 classes/plugin.php:135
+#: classes/plugin.php:96 classes/plugin.php:148
 msgid "Не переданы данные заказа Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:97
+#: classes/plugin.php:109
 msgid "Создание заказа Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:148
+#: classes/plugin.php:161
 msgid "Обновление заказа Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:182
+#: classes/plugin.php:199
 msgid "Нет заказа для обновления"
 msgstr ""
 
-#: classes/plugin.php:183
+#: classes/plugin.php:200
 msgid "Нет JSON данных для обновления"
 msgstr ""
 
-#: classes/plugin.php:191
+#: classes/plugin.php:208
 msgid "Статус"
 msgstr ""
 
-#: classes/plugin.php:202
+#: classes/plugin.php:219
 msgid "Доставка Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:213
+#: classes/plugin.php:230
 msgid "Доставка"
 msgstr ""
 
-#: classes/plugin.php:219
+#: classes/plugin.php:236
 msgid "Оплата"
 msgstr ""
 
-#: classes/plugin.php:305
+#: classes/plugin.php:322
 msgid "Не передан ID заказа Яндекс.Турбо"
 msgstr ""
 
-#: classes/settings.php:35
+#: classes/plugin.php:379
+msgid "Заказ в Яндекс.Турбо"
+msgstr ""
+
+#: classes/settings.php:38
 msgid "Яндекс.Турбо"
 msgstr ""
 
-#: classes/settings.php:46
-msgid "Подключение Турбо‑страниц для интернет-магазинов"
+#: classes/settings.php:57
+msgid "Пожалуйста, внимательно прочитайте описание"
 msgstr ""
 
-#: classes/settings.php:48
+#: classes/settings.php:61
 msgid ""
-"Эта настройка позволяет регистрировать заказы, сделанные в Яндекс.Турбо, в "
-"базе WooCommerce."
+"Мы с благодарностью принимаем любые сообщения об ошибках, любые комментарии "
+"и предложения по развитию плагина"
 msgstr ""
 
-#: classes/settings.php:49
-msgid ""
-"Для работы необходимо получить токен в разделе \"Турбо‑страниц для интернет-"
-"магазинов / Настройки / Настройка API\" Яндекс.Вебмастер."
+#: classes/settings.php:62
+msgid "на странице Issue"
 msgstr ""
 
-#: classes/settings.php:53
+#: classes/settings.php:63
+msgid "официального репозитория плагина"
+msgstr ""
+
+#: classes/settings.php:68
 msgid "Токен"
 msgstr ""
 
-#: classes/settings.php:55
+#: classes/settings.php:70
 msgid "Введите значение полученного токена"
+msgstr ""
+
+#: classes/settings.php:74
+msgid "URL для запросов API"
+msgstr ""
+
+#: classes/settings.php:77
+msgid ""
+"Скопируйте это значение и укажите его в настройках Яндекс.Вебмастер → Турбо-"
+"страницы для интернет-магазинов → Настройки → Настройки API"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -98,13 +114,13 @@ msgid "TurboShop Orders"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://github.com/ivannikitin-com/turboshop-orders"
+msgid "https://ivannikitin-com.github.io/turboshop-orders/"
 msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "Плагин для регистрации в WooCommerce заказов, сделанных в магазине Яндекс."
-"Турбо"
+"Турбо."
 msgstr ""
 
 #. Author of the plugin/theme
