@@ -11,7 +11,7 @@
  * Plugin Name:       TurboShop Orders
  * Plugin URI:        https://ivannikitin-com.github.io/turboshop-orders/
  * Description:       Плагин для регистрации в WooCommerce заказов, сделанных в магазине Яндекс.Турбо.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 5.9
  * Requires PHP:      7.4
  * Author:            Иван Никитин
