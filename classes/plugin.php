@@ -204,7 +204,7 @@ class Plugin {
 
         // Устанавливаем статус заказа
         if ( isset( $json[ 'status' ] ) ) {
-            $order->update_status( strtolower( $json[ 'status' ] ));
+            $order->update_status( apply_filters( 'turboshop_orders_update_status', strtolower( $json[ 'status' ] ), $order, $json ) );
             $order_comment .= __('Статус', TURBOSHOP_ORDERS ) . ': ' . $json[ 'status' ]  . ' / ' . $json[ 'substatus' ] . '<br>' . PHP_EOL;
         }
       
@@ -214,17 +214,18 @@ class Plugin {
             if ( 0 == count( $shippings  ) )
             {
                 // Добавляем новый способ доставки
-                $order->add_shipping( new WC_Shipping_Rate(
+                $shipping_rate = new WC_Shipping_Rate(
                     'yandex_shipping',
                     __('Доставка Яндекс.Турбо', TURBOSHOP_ORDERS ),
                     $this->comma_to_decimal( $json[ 'delivery' ][ 'price' ] )
-                ) );                
+                );
+                $order->add_shipping( apply_filters( 'turboshop_orders_add_shipping', $shipping_rate, $order, $json ) );                
             }
             else {
                 // Обновляем способ доставки
-                $shipping = reset( $shippings );    // Первый в списке способ доставки. Он должен быть один в этом заказе
-                $order->update_shipping( $shipping, array(
-                    'cost' => $this->comma_to_decimal( $json[ 'delivery' ][ 'price' ] )
+                $shipping_rate = reset( $shippings );    // Первый в списке способ доставки. Он должен быть один в этом заказе
+                $order->update_shipping( $shipping_rate, array(
+                    'cost' => apply_filters( 'turboshop_orders_update_shipping_cost', $this->comma_to_decimal( $json[ 'delivery' ][ 'price' ] ), $order, $json )
                 ) );
             }
             $order_comment .= __('Доставка', TURBOSHOP_ORDERS ) . ': ' . $json[ 'delivery' ][ 'price' ] . '<br>' . PHP_EOL;
@@ -232,13 +233,13 @@ class Plugin {
 
         // Указываем оплату
         if ( isset( $json[ 'paymentType' ] ) ) {
-            $order->set_payment_method( $json[ 'paymentType' ] );
+            $order->set_payment_method( apply_filters( 'turboshop_orders_set_payment_method', $json[ 'paymentType' ], $order, $json )  );
             $order_comment .= __('Оплата', TURBOSHOP_ORDERS ) . ': ' . $json[ 'paymentType' ] . '<br>' . PHP_EOL;
         }
         
         // Примечание к заказу
         if ( isset( $json[ 'notes' ] ) ) {
-            $order->set_customer_note( $json[ 'notes' ] );
+            $order->set_customer_note( apply_filters( 'turboshop_orders_set_customer_note', $json[ 'notes' ], $order, $json ) );
         }
 
         // Позиции (товары) заказа
@@ -264,11 +265,17 @@ class Plugin {
 
         // Покупатель
         if ( isset( $json[ 'buyer' ] ) ) {
-            $order->set_billing_phone( $json[ 'buyer' ][ 'phone' ] );
-            $order->set_billing_email( $json[ 'buyer' ][ 'email' ] );
-            if ( isset( $json[ 'buyer' ][ 'name' ] ) ) $order->set_billing_last_name( $json[ 'buyer' ][ 'name' ] );
-            if ( isset( $json[ 'buyer' ][ 'lastName' ] ) ) $order->set_billing_last_name( $json[ 'buyer' ][ 'lastName' ] );
-            if ( isset( $json[ 'buyer' ][ 'firstName' ] ) ) $order->set_billing_first_name( $json[ 'buyer' ][ 'firstName' ] );
+            $order->set_billing_phone( apply_filters( 'turboshop_orders_set_billing_phone', $json[ 'buyer' ][ 'phone' ], $order, $json ) );
+            $order->set_billing_email( apply_filters( 'turboshop_orders_set_billing_email', $json[ 'buyer' ][ 'email' ], $order, $json ) );
+
+            $name = apply_filters( 'turboshop_orders_set_name', ( isset( $json[ 'buyer' ][ 'name' ] ) ) ? $json[ 'buyer' ][ 'name' ] : '', $order, $json );
+            if ( !empty( $name) ) $order->set_billing_last_name( $name );
+
+            $last_name = apply_filters( 'turboshop_orders_set_last_name', ( isset( $json[ 'buyer' ][ 'lastName' ] ) ) ? $json[ 'buyer' ][ 'lastName' ] : '', $order, $json );
+            if ( !empty( $last_name) ) $order->set_billing_last_name( $last_name );
+
+            $first_name = apply_filters( 'turboshop_orders_set_first_name', ( isset( $json[ 'buyer' ][ 'firstName' ] ) ) ? $json[ 'buyer' ][ 'firstName' ] : '', $order, $json );
+            if ( !empty( $first_name) ) $order->set_billing_first_name( $first_name );
         }
 
         // Сохраняем
@@ -276,10 +283,10 @@ class Plugin {
         $order->save();        
 
         // Добавляем комментарий в заказ
-        $order->add_order_note( $order_comment, false, false );
+        $order->add_order_note( apply_filters( 'turboshop_orders_add_order_note', $order_comment, $order, $json ), false, false );
 
         // ID обработанного заказа
-        $result[ 'id' ] = $order->get_id();
+        $result[ 'id' ] = apply_filters( 'turboshop_orders_result_order_id', $order->get_id(), $order, $json );
 
         // Если выключена отладка и это фейковый заказ, сразу удаляем его
         if ( !WP_DEBUG && isset( $json[ 'fake' ] ) && 'true' == $json[ 'fake' ] ) {
