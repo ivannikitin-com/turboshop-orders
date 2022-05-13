@@ -203,9 +203,23 @@ class Plugin {
         $order_comment = $action . ' # ' . $json[ 'id' ] . '<br>' . PHP_EOL;
 
         // Устанавливаем статус заказа
-        if ( isset( $json[ 'status' ] ) ) {
-            $order->update_status( apply_filters( 'turboshop_orders_update_status', strtolower( $json[ 'status' ] ), $order, $json ) );
-            $order_comment .= __('Статус', TURBOSHOP_ORDERS ) . ': ' . $json[ 'status' ]  . ' / ' . $json[ 'substatus' ] . '<br>' . PHP_EOL;
+        if ( isset( $json[ 'paymentType' ] ) ) {
+            switch ( $json[ 'paymentType' ] ) {
+                case 'PREPAID':
+                    $order_status = 'wc-processing';
+                    break;
+
+                case 'POSTPAID':
+                    $order_status = 'wc-pending';
+                    break;
+
+                default:
+                    $order_status = 'wc-on-hold';
+                    break;
+            }
+            $order->update_status( apply_filters( 'turboshop_orders_update_status', $order_status, $order, $json ) );
+            $order_comment .= __('Статус', TURBOSHOP_ORDERS ) . ': ' . $json[ 'status' ]  . ' / ' . $json[ 'substatus' ] . '<br>' .
+                __('Тип оплаты', TURBOSHOP_ORDERS ) . ': ' . $json[ 'paymentType' ] . '<br>' .PHP_EOL;
         }
       
         // Устанавливаем способ доставки
@@ -232,9 +246,9 @@ class Plugin {
         }
 
         // Указываем оплату
-        if ( isset( $json[ 'paymentType' ] ) ) {
-            $order->set_payment_method( apply_filters( 'turboshop_orders_set_payment_method', $json[ 'paymentType' ], $order, $json )  );
-            $order_comment .= __('Оплата', TURBOSHOP_ORDERS ) . ': ' . $json[ 'paymentType' ] . '<br>' . PHP_EOL;
+        if ( isset( $json[ 'paymentMethod' ] ) ) {
+            $order->set_payment_method( apply_filters( 'turboshop_orders_set_payment_method', $json[ 'paymentMethod' ], $order, $json )  );
+            $order_comment .= __('Метод оплаты', TURBOSHOP_ORDERS ) . ': ' . $json[ 'paymentMethod' ] . '<br>' . PHP_EOL;
         }
         
         // Примечание к заказу

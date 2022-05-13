@@ -2,8 +2,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TurboShop Orders\n"
-"POT-Creation-Date: 2022-05-05 15:31+0300\n"
-"PO-Revision-Date: 2022-05-05 15:30+0300\n"
+"POT-Creation-Date: 2022-05-13 15:57+0300\n"
+"PO-Revision-Date: 2022-05-13 15:56+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -45,27 +45,31 @@ msgstr ""
 msgid "Нет JSON данных для обновления"
 msgstr ""
 
-#: classes/plugin.php:208
+#: classes/plugin.php:221
 msgid "Статус"
 msgstr ""
 
-#: classes/plugin.php:219
+#: classes/plugin.php:222
+msgid "Тип оплаты"
+msgstr ""
+
+#: classes/plugin.php:233
 msgid "Доставка Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:230
+#: classes/plugin.php:245
 msgid "Доставка"
 msgstr ""
 
-#: classes/plugin.php:236
-msgid "Оплата"
+#: classes/plugin.php:251
+msgid "Метод оплаты"
 msgstr ""
 
-#: classes/plugin.php:322
+#: classes/plugin.php:343
 msgid "Не передан ID заказа Яндекс.Турбо"
 msgstr ""
 
-#: classes/plugin.php:379
+#: classes/plugin.php:400
 msgid "Заказ в Яндекс.Турбо"
 msgstr ""
 
